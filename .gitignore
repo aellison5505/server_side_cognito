@@ -18,6 +18,7 @@
 *.launch
 .settings/
 *.sublime-workspace
+.gitignore
 
 # IDE - VSCode
 .vscode/*
