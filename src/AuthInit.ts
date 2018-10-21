@@ -13,12 +13,18 @@ private store: MyStorage
 
   constructor () {
     this.aws_exports = aws_exports;
-    this.store = new MyStorage();
-    this.aws_exports['storage'] = this.store;
+    this.store = this.aws_exports.Auth.storage;
+  //  this.aws_exports.Auth.storage = this.store;
 //    Auth.configure(this.aws_exports);
   }
 
  get get_auth(){
+  // console.log(this.aws_exports)
    return this.aws_exports;
+ }
+
+ get storage(){
+   return this.store;
+
  }
 }

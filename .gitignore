@@ -19,6 +19,7 @@
 .settings/
 *.sublime-workspace
 .gitignore
+.env
 
 # IDE - VSCode
 .vscode/*
@@ -44,7 +45,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-#secure
-auth-exports.ts
-auth-exports.*
