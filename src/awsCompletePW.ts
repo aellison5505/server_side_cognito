@@ -3,7 +3,7 @@ import express from 'express'
 import { AuthInit } from './AuthInit'
 
 
-export class signOn {
+export class completePW {
   private req: express.Request;
   private res: express.Response;
   private _Auth: AuthInit;
@@ -14,13 +14,13 @@ export class signOn {
     this.Auth = new AuthClass(this._Auth.get_auth)
     this.req = req;
     this.res = res;
-    this.signIn(this.req.body.user, this.req.body.passwd);
+    this.signInPw(this.req.body.user, this.req.body.passwd, this.req.body.newpw, this.req.body.attrs);
 
   }
 
-  private async signIn(user: string, password: string) {
+  private async signInPw(user: string, password: string, newpw: string, attrs: any) {
     try {
-      if (user === undefined || password === undefined) {
+      if (user === undefined || password === undefined || newpw === undefined  || attrs === undefined) {
         this.res.status(400).send('missing user or password')
         return;
       }
@@ -28,19 +28,18 @@ export class signOn {
       console.log(cogUser)
       let ret = {}
       if (cogUser['challengeName'] === 'NEW_PASSWORD_REQUIRED') {
-        
-        ret = {
-          challengeName: 'NEW_PASSWORD_REQUIRED'
-        }
+      let newCogUser = await this.Auth.completeNewPassword(cogUser, newpw, attrs)
+      console.log(newCogUser)
+      let session = await this.Auth.currentSession();
+      ret = {
+        jwtTokn: session.getAccessToken().getJwtToken(),
+        idToken: session.getIdToken().getJwtToken(),
+        reToken: session.getRefreshToken().getToken(),
+        key: process.env.KEY
+      }
       } else {
+        throw new Error("NO_challengeName")
 
-        let session = await this.Auth.currentSession();
-        ret = {
-          jwtTokn: session.getAccessToken().getJwtToken(),
-          idToken: session.getIdToken().getJwtToken(),
-          reToken: session.getRefreshToken().getToken(),
-          key: process.env.KEY
-        }
       }
       this.res.set('Content-Type', 'application/json');
       this.res.status(200).send(ret);

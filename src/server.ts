@@ -6,6 +6,7 @@ import express from 'express'
 import { signOn } from './awsSignOn'
 import { subForgotPw} from './awsSubForgotPw'
 import { forgotPw } from './awsForgotPw'
+import { completePW } from './awsCompletePW'
 
 
 
@@ -35,6 +36,7 @@ export class API_APP {
    this._app.post('/login', (req,res) => new signOn(req, res));
    this._app.post('/subfgpw', (req,res) => new subForgotPw(req, res));
    this._app.post('/forgotpw', (req,res) => new forgotPw(req, res));
+   this._app.post('/completepw', (req,res) => new completePW(req, res));
    //this._app.put('/new_user', (req,res) => new new_user(req, res));
   // this._app.put('/change_pwd', (req,res) => new change_pwd(req, res));
 //   this._app.delete('/change_user', (req,res) => new change_username(req, res));
