@@ -1,6 +1,9 @@
 import { AuthClass } from '@aws-amplify/auth';
 import express from 'express'
-import { AuthInit } from './AuthInit'
+//import {CognitoUser} from 'amazon-cognito-identity-js';
+import { AuthInit } from './AuthInit';
+(<any>global).navigator = {};
+
 
 
 export class signOn {
@@ -9,7 +12,10 @@ export class signOn {
   private _Auth: AuthInit;
   private Auth: AuthClass;
 
+
+
   constructor(req: express.Request, res: express.Response) {
+
     this._Auth = new AuthInit()
     this.Auth = new AuthClass(this._Auth.get_auth)
     this.req = req;
@@ -26,15 +32,17 @@ export class signOn {
       }
       let cogUser = await this.Auth.signIn(user, password);
       console.log(cogUser)
+    
       let ret = {}
       if (cogUser['challengeName'] === 'NEW_PASSWORD_REQUIRED') {
-        
+
         ret = {
           challengeName: 'NEW_PASSWORD_REQUIRED'
         }
       } else {
 
         let session = await this.Auth.currentSession();
+        console.log(session)
         ret = {
           jwtTokn: session.getAccessToken().getJwtToken(),
           idToken: session.getIdToken().getJwtToken(),
@@ -46,7 +54,7 @@ export class signOn {
       this.res.status(200).send(ret);
       return
     } catch (e) {
-      console.log(e)
+
       this.res.status(500).send(e
         //{
     //    "message": e.message

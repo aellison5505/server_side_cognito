@@ -7,6 +7,8 @@ import { signOn } from './awsSignOn'
 import { subForgotPw} from './awsSubForgotPw'
 import { forgotPw } from './awsForgotPw'
 import { completePW } from './awsCompletePW'
+import { signUp } from './awsSignUp'
+import { confirmSU } from './awsConfirmSU'
 
 
 
@@ -37,11 +39,11 @@ export class API_APP {
    this._app.post('/subfgpw', (req,res) => new subForgotPw(req, res));
    this._app.post('/forgotpw', (req,res) => new forgotPw(req, res));
    this._app.post('/completepw', (req,res) => new completePW(req, res));
-   //this._app.put('/new_user', (req,res) => new new_user(req, res));
-  // this._app.put('/change_pwd', (req,res) => new change_pwd(req, res));
-//   this._app.delete('/change_user', (req,res) => new change_username(req, res));
-   this._app.use('*', (req: express.Request, res: express.Response) => {
+   this._app.post('/signup', (req,res) => new signUp(req, res));
+   this._app.post('/confirmsup', (req,res) => new confirmSU(req, res));
+   this._app.use('*', (req, res) => {
     // console.log('pass'+req.params[0]);
+    req = req;
     res.status(404).send('Unauthorized');
   })
   }
