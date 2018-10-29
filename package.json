@@ -4,6 +4,7 @@
   "description": "JBFES App AWS Cognito interface",
   "main": "index.js",
   "scripts": {
+    "run": "nodenv ./lib/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Anthony Ellison <anthonyellison5505@gmail.com> (www.mobilewebapp.net)",
