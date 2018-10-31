@@ -10,6 +10,7 @@ import { completePW } from './awsCompletePW'
 import { signUp } from './awsSignUp'
 import { confirmSU } from './awsConfirmSU'
 import { signOff } from './awsSignOff'
+import { reAuth } from './awsReAuth'
 
 
 
@@ -43,6 +44,7 @@ export class API_APP {
    this._app.post('/signup', (req,res) => new signUp(req, res));
    this._app.post('/confirmsup', (req,res) => new confirmSU(req, res));
    this._app.post('/signoff', (req,res) => new signOff(req, res));
+   this._app.post('/renew', (req,res) => new reAuth(req, res));
    this._app.use('*', (req, res) => {
     // console.log('pass'+req.params[0]);
     req = req;
