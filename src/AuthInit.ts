@@ -7,24 +7,38 @@ import { aws_exports } from './auth-exports'
 
 export class AuthInit {
 
-private aws_exports: any
-private store: MyStorage
-//private aws_auth: any
+private _aws_exports: aws_exports;
+
 
   constructor () {
-    this.aws_exports = aws_exports;
-    this.store = this.aws_exports.Auth.storage;
-  //  this.aws_exports.Auth.storage = this.store;
-//    Auth.configure(this.aws_exports);
+    this._aws_exports = this.init()
   }
+
+private init (): aws_exports{
+  return {
+           
+      //region : <string>process.env.region,
+      region : `${process.env.region}`,
+      // OPTIONAL - Amazon Cognito User Pool ID
+      userPoolId:  `${process.env.userPoolId}`,
+
+      // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+      userPoolWebClientId: `${process.env.userPoolWebClientId}`,
+
+      storage: new MyStorage()
+    
+  }
+
+  //return my_exports;
+}
 
  get get_auth(){
   // console.log(this.aws_exports)
-   return this.aws_exports;
+   return this._aws_exports;
  }
 
  get storage(){
-   return this.store;
+   return this._aws_exports.storage;
 
  }
 }

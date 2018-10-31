@@ -1,16 +1,16 @@
 import { MyStorage} from './MyStorage'
 
-export let aws_exports = {
-    Auth: {
+export interface aws_exports  {
+    
 
-      region:process.env.region,
+      region: string,
 
       // OPTIONAL - Amazon Cognito User Pool ID
-      userPoolId: process.env.userPoolId,
+      userPoolId: string,
 
       // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-      userPoolWebClientId:  process.env.userPoolWebClientId,
+      userPoolWebClientId:  string,
 
-      storage: new MyStorage()
+      storage: MyStorage
     }
-}
+

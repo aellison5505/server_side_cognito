@@ -44,10 +44,11 @@ export class signOn {
         let session = await this.Auth.currentSession();
         console.log(session)
         ret = {
-          jwtTokn: session.getAccessToken().getJwtToken(),
+          jwtToken: session.getAccessToken().getJwtToken(),
           idToken: session.getIdToken().getJwtToken(),
           reToken: session.getRefreshToken().getToken(),
-          key: process.env.KEY
+          userId: cogUser.username,
+          key: process.env.KEY 
         }
       }
       this.res.set('Content-Type', 'application/json');
