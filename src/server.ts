@@ -3,7 +3,8 @@
 import bodyParser from 'body-parser'
 import express from 'express'
 import { eventContext } from 'aws-serverless-express/middleware';
-
+import cors from 'cors'
+import compression from 'compression'
 import { signOn } from './awsSignOn'
 import { subForgotPw} from './awsSubForgotPw'
 import { forgotPw } from './awsForgotPw'
@@ -28,7 +29,8 @@ export class API_APP {
   }
 
   private config() {
-
+    this._app.use(cors());
+    this._app.use(compression());
     this._app.use(bodyParser.json());
     this._app.use(bodyParser.urlencoded({ extended: true }));
     if(this._lambda===true){
