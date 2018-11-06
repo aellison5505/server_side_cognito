@@ -2,6 +2,7 @@
 
 import bodyParser from 'body-parser'
 import express from 'express'
+import { eventContext } from 'aws-serverless-express/middleware';
 
 import { signOn } from './awsSignOn'
 import { subForgotPw} from './awsSubForgotPw'
@@ -16,9 +17,10 @@ import { reAuth } from './awsReAuth'
 
 export class API_APP {
   private _app: express.Application;
+  private _lambda:any;
 
-  constructor(){
-
+  constructor(_lambda:any = false){
+    this._lambda = _lambda;
     this._app = express();
     this.config();
 
@@ -29,6 +31,10 @@ export class API_APP {
 
     this._app.use(bodyParser.json());
     this._app.use(bodyParser.urlencoded({ extended: true }));
+    if(this._lambda===true){
+      console.log('lambda')
+      this._app.use(eventContext())
+    }
     this.routes();
   }
 

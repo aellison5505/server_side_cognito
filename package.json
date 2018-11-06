@@ -10,6 +10,7 @@
   "author": "Anthony Ellison <anthonyellison5505@gmail.com> (www.mobilewebapp.net)",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@types/aws-serverless-express": "^3.3.0",
     "@types/express": "^4.16.0",
     "@types/isomorphic-fetch": "0.0.34",
     "@types/node": "^10.12.0",
@@ -17,6 +18,7 @@
   },
   "dependencies": {
     "@aws-amplify/auth": "^1.2.7",
+    "aws-serverless-express": "^3.3.5",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "isomorphic-fetch": "^2.2.1"
